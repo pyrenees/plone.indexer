@@ -3,5 +3,8 @@
     xmlns:five="http://namespaces.zope.org/five"
     i18n_domain="plone.indexer">
 
+  <adapter
+      factory=".wrapper.getObjectWrapperKeyReference"
+      trusted="y" />
 
 </configure>

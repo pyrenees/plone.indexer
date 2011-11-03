@@ -1,12 +1,17 @@
 from zope.interface import implements
+from zope.interface import implementer
 from zope.interface import providedBy
+from zope.interface import implementedBy
 from zope.interface import Interface
 from zope.interface.declarations import getObjectSpecification
-from zope.interface.declarations import ObjectSpecification
+from zope.interface.declarations import Provides
 from zope.interface.declarations import ObjectSpecificationDescriptor
 
 from zope.component import adapts
+from zope.component import adapter
 from zope.component import queryMultiAdapter
+
+from zope.keyreference import interfaces as keyref_ifaces
 
 from plone.indexer.interfaces import IIndexableObjectWrapper
 from plone.indexer.interfaces import IIndexableObject
@@ -25,9 +30,10 @@ class WrapperSpecification(ObjectSpecificationDescriptor):
         if inst is None:
             return getObjectSpecification(cls)
         else:
-            provided = providedBy(inst._IndexableObjectWrapper__object)
-            cls = type(inst)
-            return ObjectSpecification(provided, cls)
+            obj = inst._IndexableObjectWrapper__object
+            provided = providedBy(obj)
+            return Provides(
+                type(obj), implementedBy(cls), provided)
 
 
 class IndexableObjectWrapper(object):
@@ -71,3 +77,9 @@ class IndexableObjectWrapper(object):
         # Finally see if the object provides the attribute directly. This
         # is allowed to raise AttributeError.
         return getattr(self.__object, name)
+
+
+@implementer(keyref_ifaces.IKeyReference)
+@adapter(IndexableObjectWrapper)
+def getObjectWrapperKeyReference(wrapper):
+    return keyref_ifaces.IKeyReference(wrapper._getWrappedObject())
