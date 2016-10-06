@@ -3,7 +3,6 @@
 """
 
 from plone.indexer.delegate import DelegatingIndexerFactory
-from Products.ZCatalog.interfaces import IZCatalog
 from zope.component import adapter
 
 
@@ -37,7 +36,8 @@ class indexer(adapter):
 
     def __init__(self, *interfaces):
         if len(interfaces) == 1:
-            interfaces += (IZCatalog, )
+            # interfaces += (IZCatalog, )
+            pass
         elif len(interfaces) > 2:
             raise ValueError(
                 u'The @indexer decorator takes at most two interfaces as '

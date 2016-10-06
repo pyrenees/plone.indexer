@@ -6,7 +6,7 @@ import os
 
 
 version = '1.0.5.dev0'
-description = 'Hooks to facilitate managing custom index values in Zope 2/CMF applications'  # noqa
+description = 'Hooks to facilitate managing custom index values in plone.server applications'  # noqa
 long_description = ('\n\n'.join([
     open('README.rst').read(),
     open('CHANGES.rst').read(),
@@ -23,15 +23,11 @@ setup(
     classifiers=[
         "Environment :: Web Environment",
         "Framework :: Plone",
-        "Framework :: Plone :: 4.3",
-        "Framework :: Plone :: 5.0",
-        "Framework :: Plone :: 5.1",
-        "Framework :: Zope2",
+        "Framework :: Plone :: 7.0",
         "License :: OSI Approved :: BSD License",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2.6",
-        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.5",
     ],
     keywords='plone cmf zope catalog index',
     author='Plone Foundation',
@@ -46,7 +42,5 @@ setup(
         'setuptools',
         'zope.interface',
         'zope.component',
-        'Products.CMFCore',
-        'Products.ZCatalog',
     ],
 )
